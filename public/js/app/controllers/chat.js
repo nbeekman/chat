@@ -43,7 +43,12 @@
         if(!self.socket){
           self.socket = io.connect(window.location.origin);
           self.socket.on("message", function(data){ //catch data here
+          //need an if statement to show system messages as system messages
+          if(data.from == "system"){
             self.element.find('#incoming').append('<pre><p class="admin">'+data.message+'</p></pre>'); //wrap message in paragraph, append to div#incoming
+          }else{
+            self.element.find('#incoming').append('<pre><p class="admin">'+data.message+'</p></pre>'); //wrap message in paragraph, append to div#incoming
+          }
           });
         }
         

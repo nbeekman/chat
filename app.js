@@ -32,8 +32,8 @@ app.configure(function(){
   app.use(express.session({
     secret: "Ahmed how did you know about who done it in the lounge?",
     store: new MongoStore({
-      mongoose_connection: mongoose.connection
-      ,db: 'chat_DEV'
+      mongoose_connection: mongoose.connection,
+      db: 'chat_DEV'
     })
   }));
   
