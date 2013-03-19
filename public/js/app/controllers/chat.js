@@ -40,10 +40,8 @@
       RoomModel.findOne({id:data.room_id}, function(room){//callback function, this id different function
         self.room = room;
         self.element.html(Templates["pages/partial.room.jade"]({}));//set html of element
-        
         if(!self.socket){
           self.socket = io.connect(window.location.origin);
-        
           self.socket.on("message", function(data){ //catch data here
             self.element.find('#incoming').append('<pre><p class="admin">'+data.message+'</p></pre>'); //wrap message in paragraph, append to div#incoming
           });
