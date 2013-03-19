@@ -8,7 +8,8 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , passport = require('passport')
-  , mongoose = require('mongoose');
+  , mongoose = require('mongoose')
+  , connectMongo = require('connect-mongo');
 
 var app = express();
 
