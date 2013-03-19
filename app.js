@@ -9,7 +9,7 @@ var express = require('express')
   , path = require('path')
   , passport = require('passport')
   , mongoose = require('mongoose')
-  , connectMongo = require('connect-mongo');
+  , MongoStore = require('connect-mongo')(express);
 
 var app = express();
 
@@ -23,17 +23,29 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
   app.use(express.session());
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(app.router);
   app.use(require('stylus').middleware(__dirname + '/public'));
   app.use(express.static(path.join(__dirname, 'public')));
   app.locals.title = "Welcome to Chat"
+  
+  //mongo db connection
+  mongoose.connect('mongodb://localhost/chat_DEV');
+  
+  app.use(express.session({
+    secret: "Ahmed how did you know about who done it in the lounge?",
+    store: new MongoStore({
+      mongoose_connection: mongoose.connection
+      ,db: 'chat_DEV'
+    })
+  }));
+  
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.use(app.router);
+  
 });
 
 app.configure('development', function(){
   app.use(express.errorHandler());
-  mongoose.connect('mongodb://localhost/chat_DEV');
 });
 
 passport.serializeUser(function(user, done) { //passport stuff should be in separate file
