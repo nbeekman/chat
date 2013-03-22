@@ -10,4 +10,4 @@
 
   window.Application.Models.Room = Room;
   
-})()
+})();

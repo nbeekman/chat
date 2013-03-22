@@ -24,7 +24,7 @@ app.configure(function(){
   app.use(express.cookieParser('your secret here'));
   app.use(require('stylus').middleware(__dirname + '/public'));
   app.use(express.static(path.join(__dirname, 'public')));
-  app.locals.title = "Welcome to Chat"
+  app.locals.title = "Welcome to Chat";
   
   //mongo db connection
   mongoose.connect('mongodb://localhost/chat_DEV');

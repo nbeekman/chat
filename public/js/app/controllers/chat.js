@@ -1,6 +1,6 @@
 (function (RoomModel, Templates) { //front end chat controller
 
-  var Chat = can.Control({ //dont' need static
+  var Chat = can.Control({ //don't need static
     init:function (element, options){ //options.user is our user
       console.log('chat controller initialized', arguments);
       //this.options.user;
@@ -45,7 +45,7 @@
           self.socket.on("message", function(data){ //catch data here
           //need an if statement to show system messages as system messages
           if(data.from == "system"){
-            self.element.find('#incoming').append('<pre><p class="admin">'+data.message+'</p></pre>'); //wrap message in paragraph, append to div#incoming
+            self.element.find('#incoming').append('<pre><p class="system">'+data.message+'</p></pre>'); //wrap message in paragraph, append to div#incoming
           }else{
             self.element.find('#incoming').append('<pre><p class="admin">'+data.message+'</p></pre>'); //wrap message in paragraph, append to div#incoming
           }
