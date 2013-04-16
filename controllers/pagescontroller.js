@@ -1,7 +1,7 @@
 var PagesController = {
 
   home:function(req,res){
-    res.render('pages/home', {user:req.user}); //user's info passed to front end
+    res.render('pages/home', {user:req.session.user}); //user's info passed to front end
   },
 
 

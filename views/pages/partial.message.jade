@@ -1,5 +1,7 @@
 - var cls = source;
 - if (from=='system') cls = "system";
+
 p(class="#{cls}")
+  img(src="/images/#{avatar}", width="60")
   span= from
-  | #{message}
+  | : #{message}

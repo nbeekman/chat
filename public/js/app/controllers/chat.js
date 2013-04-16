@@ -9,9 +9,9 @@
     "#outgoing keyup": function(textarea, event){ //callback context automatically bound to controller thanks to can.js
       if(!event.shiftKey && event.which == 13){//if shift key is not down, and enter key is pressed, submit
         var message = textarea.val();
-        this.socket.emit('message', {room:this.room._id, message:message, from:this.options.user.displayName});//emit takes 2 events 'message', {message...}
+        this.socket.emit('message', {room:this.room._id, message:message, from:this.options.user.displayName, avatar:this.options.user.avatar});//emit takes 2 events 'message', {message...}
         //this.element.find('#incoming').append('<pre><p class="fromuser">'+message+'</p></pre>');
-        this.element.find('#incoming').append(Templates["pages/partial.message.jade"]({message:message, source:'outgoing', from: ''}));
+        this.element.find('#incoming').append(Templates["pages/partial.message.jade"]({message:message, source:'outgoing', from:this.options.user.displayName, avatar:this.options.user.avatar}));
         textarea.val('');
       }
     },

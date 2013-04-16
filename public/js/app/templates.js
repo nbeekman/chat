@@ -13,7 +13,9 @@ var interp;
  if (from=='system') cls = "system";
 buf.push('<p');
 buf.push(attrs({ "class": ("" + (cls) + "") }, {"class":true}));
-buf.push('><span>');
+buf.push('><img');
+buf.push(attrs({ 'src':("/images/" + (avatar) + ""), 'width':("60") }, {"src":true,"width":true}));
+buf.push('/><span>');
 var __val__ = from
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</span>' + escape((interp = message) == null ? '' : interp) + '</p>');

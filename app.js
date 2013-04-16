@@ -94,21 +94,21 @@ server.listen(app.get('port'), function(){
 //socket io stuff
 io.sockets.on('connection', function (socket) {//callback that binds only that socket
   
-  socket.emit('message', {message:"Connected to Chat", from:"system"});
+  socket.emit('message', {message:"Connected to Chat", from:"system", avatar:""});
   
   socket.on('join', function(data){
     RoomModel.findById(data.room, 'title', function(err, room){
       if (!err && room) {
         socket.join(room._id);
         socket.broadcast.to(room._id).emit('message', {message:data.from+" joined the room", from:"system"});
-        socket.emit('message', {message:"You haved joined room "+room.title, from:"system"});
+        socket.emit('message', {message:"You haved joined room "+room.title, from:"system", avatar:""});
       }
     });
   });
   
   socket.on('leave', function(data){
     socket.leave(data.room);
-    socket.broadcast.to(data.room).emit('message', {message:data.from+" left the room.", from:"system"});
+    socket.broadcast.to(data.room).emit('message', {message:data.from+" left the room.", from:"system", avatar:""});
   });
   
   socket.on('message', function(data){ 
