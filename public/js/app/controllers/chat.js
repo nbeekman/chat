@@ -10,7 +10,8 @@
       if(!event.shiftKey && event.which == 13){//if shift key is not down, and enter key is pressed, submit
         var message = textarea.val();
         this.socket.emit('message', {room:this.room._id, message:message, from:this.options.user.displayName});//emit takes 2 events 'message', {message...}
-        this.element.find('#incoming').append('<pre><p class="fromuser">'+message+'</p></pre>');
+        //this.element.find('#incoming').append('<pre><p class="fromuser">'+message+'</p></pre>');
+        this.element.find('#incoming').append(Templates["pages/partial.message.jade"]({message:message, source:'outgoing', from: ''}));
         textarea.val('');
       }
     },
@@ -44,11 +45,13 @@
           self.socket = io.connect(window.location.origin);
           self.socket.on("message", function(data){ //catch data here
           //need an if statement to show system messages as system messages
-          if(data.from == "system"){
-            self.element.find('#incoming').append('<pre><p class="system">'+data.message+'</p></pre>'); //wrap message in paragraph, append to div#incoming
-          }else{
-            self.element.find('#incoming').append('<pre><p class="admin">'+data.message+'</p></pre>'); //wrap message in paragraph, append to div#incoming
-          }
+          //if(data.from == "system"){
+          data.source = "incoming";
+          self.element.find('#incoming').append(Templates["pages/partial.message.jade"](data));
+            //self.element.find('#incoming').append('<pre><p class="system">'+data.message+'</p></pre>'); //wrap message in paragraph, append to div#incoming
+          //}else{
+            //self.element.find('#incoming').append('<pre><p class="admin">'+data.message+'</p></pre>'); //wrap message in paragraph, append to div#incoming
+          //}
           });
         }
         

@@ -1,6 +1,7 @@
 var PagesController = require('../controllers/pagescontroller'),
 AuthController = require('../controllers/authcontroller'),
 RoomController = require('../controllers/roomcontroller'),
+AccountController = require ('../controllers/accountcontroller'),
 passport = require('passport');
 
 var verifyUser  = function(req,res,next){
@@ -35,6 +36,9 @@ var route = function(app){
   app.post('/rooms', RoomController.create);
   app.put('/rooms/:id', RoomController.update);
   app.delete('/rooms/:id', RoomController.delete);
+  
+  app.get('/account', AccountController.show);
+  app.post('/account', AccountController.update);
   
 };
 

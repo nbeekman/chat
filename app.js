@@ -19,11 +19,21 @@ app.configure(function(){
   app.set('view engine', 'jade');
   app.use(express.favicon());
   app.use(express.logger('dev'));
-  app.use(express.bodyParser());
+  app.use(express.bodyParser({keepExtensions: true, uploadDir: __dirname+'/public/images'}));
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
   app.use(require('stylus').middleware(__dirname + '/public'));
   app.use(express.static(path.join(__dirname, 'public')));
+  
+  /*
+app.use(function (req,res,next){
+    if(req.user){
+      app.locals.user = req.user;
+    }
+    next();
+  });
+*/
+  
   app.locals.title = "Welcome to Chat";
   
   //mongo db connection
@@ -75,6 +85,7 @@ route(app);
 
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
+var RoomModel = require('./models/roommodel');
 
 server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
@@ -86,9 +97,13 @@ io.sockets.on('connection', function (socket) {//callback that binds only that s
   socket.emit('message', {message:"Connected to Chat", from:"system"});
   
   socket.on('join', function(data){
-    socket.join(data.room); //join room that's named room id
-    socket.broadcast.to(data.room).emit('message', {message:data.from+" joined the room", from:"system"});
-    socket.emit('message', {message:"You haved joined room "+data.room, from:"system"});
+    RoomModel.findById(data.room, 'title', function(err, room){
+      if (!err && room) {
+        socket.join(room._id);
+        socket.broadcast.to(room._id).emit('message', {message:data.from+" joined the room", from:"system"});
+        socket.emit('message', {message:"You haved joined room "+room.title, from:"system"});
+      }
+    });
   });
   
   socket.on('leave', function(data){

@@ -37,7 +37,7 @@ header a:hover {
   border: solid 1px #ccc;
   margin-left: 300px;
 }
-.admin {
+.outgoing {
   text-align: right;
   color: #6a91a0;
   margin: 0 0 2px 0;
@@ -48,4 +48,7 @@ header a:hover {
   color: #000;
   font: 18px Arial;
   margin: 5px;
+}
+.system {
+  color: #f00;
 }

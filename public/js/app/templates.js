@@ -4,6 +4,23 @@ var jade=function(exports){Array.isArray||(Array.isArray=function(arr){return"[o
 
  var templates = {};
 
+templates["pages/partial.message.jade"] = function anonymous(locals, attrs, escape, rethrow, merge) {
+attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
+var buf = [];
+with (locals || {}) {
+var interp;
+ var cls = source;
+ if (from=='system') cls = "system";
+buf.push('<p');
+buf.push(attrs({ "class": ("" + (cls) + "") }, {"class":true}));
+buf.push('><span>');
+var __val__ = from
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</span>' + escape((interp = message) == null ? '' : interp) + '</p>');
+}
+return buf.join("");
+}
+
 templates["pages/partial.room.jade"] = function anonymous(locals, attrs, escape, rethrow, merge) {
 attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
 var buf = [];
