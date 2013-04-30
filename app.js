@@ -35,7 +35,7 @@ app.use(function (req,res,next){
 */
   
   app.locals.title = "Welcome to Chat";
-  
+
   //mongo db connection
   mongoose.connect('mongodb://localhost/chat_DEV');
   
